@@ -54,7 +54,7 @@ fi
 for COMMIT in $NEW_COMMITS
 do
   echo '** Exporting commit to CVS: **'
-  git cvsexportcommit -ucpw $CVS_DIR $COMMIT || clean_up
+  git cvsexportcommit -kucpw $CVS_DIR $COMMIT || clean_up
   # save successful exported commit to file
   echo $COMMIT > $LAST_EXPORT_FILE
 done
