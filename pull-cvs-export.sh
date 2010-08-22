@@ -18,13 +18,19 @@ clean_up() {
 }
 
 # pull
-git pull
+git pull -q
+if [ $? -ne 0 ]
+then
+ echo "** git pull failed **"
+ exit 1
+fi
+
 # get last exported commit ID
 LAST_EXPORTED=`cat $LAST_EXPORT_FILE`
-echo "last exported: $LAST_EXPORTED"
+#echo "last exported: $LAST_EXPORTED"
 # get new commit IDs
 NEW_COMMITS=`git rev-list $LAST_EXPORTED..HEAD | tac`
-echo "new commits: $NEW_COMMITS"
+#echo "new commits: $NEW_COMMITS"
 # loop for exporting each commit
 for COMMIT in $NEW_COMMITS
 do
