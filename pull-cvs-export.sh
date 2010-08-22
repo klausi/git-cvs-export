@@ -17,9 +17,11 @@ clean_up() {
 # pull
 git pull
 # get last exported commit ID
-LAST_EXPORETD=`cat .cvslastexport`
+LAST_EXPORTED=`cat .cvslastexport`
+echo "last exported: $LAST_EXPORTED"
 # get new commit IDs
 NEW_COMMITS=`git rev-list $LAST_EXPORTED..HEAD`
+echo "new commits: $NEW_COMMITS"
 # loop for exporting each commit
 for COMMIT in $NEW_COMMITS
 do
