@@ -41,7 +41,14 @@ fi
 LAST_EXPORTED=`cat $LAST_EXPORT_FILE`
 #echo "last exported: $LAST_EXPORTED"
 # get new commit IDs
-NEW_COMMITS=`git rev-list $LAST_EXPORTED..HEAD | tac`
+if [ $LAST_EXPORTED = "" ]
+then
+  # no last export here, so let's export the complete history
+  NEW_COMMITS=`git rev-list HEAD | tac`
+else
+  # get the new commits since the last export
+  NEW_COMMITS=`git rev-list $LAST_EXPORTED..HEAD | tac`
+fi
 #echo "new commits: $NEW_COMMITS"
 # loop for exporting each commit
 for COMMIT in $NEW_COMMITS
