@@ -7,10 +7,10 @@ then
 fi
 
 # git source directory
-GIT_DIR=$1
+GIT_DIR=`readlink -f $1`
 
 # cvs target directory
-CVS_DIR=$2
+CVS_DIR=`readlink -f $2`
 
 # file to keep last successfully exported commit ID
 LAST_EXPORT_FILE=.cvslastexport
