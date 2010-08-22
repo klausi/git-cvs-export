@@ -38,7 +38,7 @@ then
 fi
 
 # get new commit IDs
-if [ -f $LAST_EXPORTED ]
+if [ -f $LAST_EXPORT_FILE ]
 then
   # get last exported commit ID
   LAST_EXPORTED=`cat $LAST_EXPORT_FILE`
