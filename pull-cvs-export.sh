@@ -23,7 +23,7 @@ git pull
 LAST_EXPORTED=`cat $LAST_EXPORT_FILE`
 echo "last exported: $LAST_EXPORTED"
 # get new commit IDs
-NEW_COMMITS=`git rev-list $LAST_EXPORTED..HEAD`
+NEW_COMMITS=`git rev-list $LAST_EXPORTED..HEAD | tac`
 echo "new commits: $NEW_COMMITS"
 # loop for exporting each commit
 for COMMIT in $NEW_COMMITS
@@ -31,6 +31,6 @@ do
   echo '** Exporting commit to CVS: **'
   git cvsexportcommit -ucpw $CVS_DIR $COMMIT || clean_up
   # save succeddful exported commit to file
-  cat $COMMIT > $LAST_EXPORT_FILE
+  echo $COMMIT > $LAST_EXPORT_FILE
 done
 
