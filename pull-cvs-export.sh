@@ -1,13 +1,25 @@
 #!/bin/sh
 
+
+if [ $# -ne 2 ]
+then
+  echo "Usage: $0 <git dir source> <CVS dir destination>"
+fi
+
+# git source directory
+GIT_DIR=$1
+
 # cvs target directory
-CVS_DIR=/home/klausi/git-cvs/contributions/sandbox/klausi/cvs-export-test
+CVS_DIR=$2
 
 # file to keep last successfully exported commit ID
 LAST_EXPORT_FILE=.cvslastexport
 
+# switch to git dir
+cd $GIT_DIR
+
 # Make sure we where called correctly.
-CURRENT_GIT="$(git rev-parse --git-dir 2>/dev/null)" || exit 4 "** Must be called from within a git repository **"
+CURRENT_GIT="$(git rev-parse --git-dir 2>/dev/null)" || exit 4 "** First argument must be a git repository **"
 
 clean_up() {
   #cvs -d /srv/cvs/drupal up -C $GITSRV/$MODULE_BASE/$MODULE/ > /dev/null
